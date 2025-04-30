@@ -75,7 +75,11 @@ export const useTaskStore = create<TaskState>((set, get) => ({
       await api.post('/tasks/reorder', {
         orderedTaskIds: orderedTasks.map(task => task.id),
       });
-      set({ tasks: orderedTasks });
+      // Keep the existing tasks that weren't reordered (from other projects)
+      const currentTasks = get().tasks.filter(
+        task => !orderedTasks.some(ot => ot.id === task.id)
+      );
+      set({ tasks: [...currentTasks, ...orderedTasks] });
     } catch (e) {
       console.error('Failed to reorder tasks:', e);
     }

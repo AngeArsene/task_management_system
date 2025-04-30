@@ -48,7 +48,14 @@ export function TaskList({ tasks }: TaskListProps) {
     if (oldIndex === -1 || newIndex === -1) return;
 
     const reordered = arrayMove(tasks, oldIndex, newIndex);
-    reorderTasks(reordered);
+
+    // Update priorities in the reordered array
+    const withUpdatedPriorities = reordered.map((task, index) => ({
+        ...task,
+        priority: index + 1
+    }));
+
+    reorderTasks(withUpdatedPriorities);
   }
 
   return (
