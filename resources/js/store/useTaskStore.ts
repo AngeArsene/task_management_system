@@ -96,6 +96,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
       await api.delete(`/projects/${id}`);
       const filtered = get().projects.filter(p => p.id !== id);
       set({ projects: filtered });
+      set({ tasks: get().tasks.filter(task => task.projectId !== id) });
 
       if (get().selectedProjectId === String(id)) {
         get().setSelectedProject(null);

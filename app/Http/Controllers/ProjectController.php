@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -45,11 +44,10 @@ class ProjectController extends Controller
         return $colors[$id % count($colors)];
     }
 
-    // Remaining resource methods can stay as-is or be removed if unused
+    public function destroy(Project $project)
+    {
+        $project->delete();
 
-    public function create() {}
-    public function show(Project $project) {}
-    public function edit(Project $project) {}
-    public function update(Request $request, Project $project) {}
-    public function destroy(Project $project) {}
+        return response()->json(['status' => 'deleted']);
+    }
 }
