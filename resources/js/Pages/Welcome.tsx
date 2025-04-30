@@ -11,9 +11,9 @@ import { usePage } from '@inertiajs/react';
 import { Task, Project } from '../types/task';
 
 function App() {
-    const page = usePage<any>(); // disables TS checking for props
+  const page = usePage<any>(); // disables TS checking for props
 
-    const { tasks: initialTasks, projects: initialProjects, selectedProject } = page.props;
+  const { tasks: initialTasks, projects: initialProjects, selectedProject } = page.props;
 
   const {
     tasks,
@@ -29,8 +29,6 @@ function App() {
     setProjects(initialProjects);
     setSelectedProject(selectedProject);
 
-    console.log('Initial Tasks:', initialTasks); // from server
-    console.log('Tasks in Store:', tasks);
   }, [initialTasks, initialProjects, selectedProject, setTasks, setProjects, setSelectedProject]);
 
 
