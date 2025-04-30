@@ -1,4 +1,149 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+# TaskFlow - Drag & Drop Task Manager
+
+🚀 **A sleek, interactive task management app** with project organization, priority-based sorting, and smooth drag-and-drop functionality. Built with Laravel, Inertia.js, React, and TypeScript.
+
+![TaskFlow Screenshot](screenshot.png)
+
+## ✨ Features
+
+### **Task Management**
+
+- ✅ Add/edit/delete tasks with priorities
+- 🖱️ Intuitive drag-and-drop reordering
+- 🏷️ Organize by projects with color-coding
+- 🔢 Automatic priority numbering
+
+### **Project System**
+
+- 🎨 Color-coded projects
+- 🗂️ Filter tasks by project
+- ➕ Quick project creation
+
+### **UI/UX**
+
+- ✨ Animated transitions with Framer Motion
+- 📱 Fully responsive design
+- 🎛️ Keyboard-friendly editing
+
+## 🛠️ Tech Stack
+
+**Frontend**
+
+- React 18 + TypeScript
+- Inertia.js
+- Tailwind CSS
+- Framer Motion (animations)
+- dnd-kit (drag-and-drop)
+
+**Backend**
+
+- Laravel 10
+- MySQL
+
+**State Management**
+
+- Zustand
+
+## 🚀 Installation
+
+### Prerequisites
+
+- PHP ≥ 8.1
+- Composer
+- Node.js ≥ 16
+- MySQL
+
+### Setup Steps
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/taskflow.git
+   cd taskflow
+   ```
+2. Install dependencies:
+
+   ```bash
+   composer install
+   npm install
+   ```
+3. Configure environment:
+
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+4. Set up database:
+
+   ```bash
+   php artisan migrate --seed
+   ```
+5. Build assets:
+
+   ```bash
+   npm run build
+   ```
+6. Start development servers:
+
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
+
+## 📂 Project Structure
+
+```
+taskflow/
+├── app/
+│   ├── Http/Controllers/        # Laravel controllers
+│   ├── Models/                  # Eloquent models
+├── resources/
+│   ├── js/                      # React components
+│   │   ├── components/          # UI components
+│   │   ├── store/               # Zustand store
+│   │   ├── types/               # TypeScript types
+├── routes/                      # Laravel routes
+├── public/                      # Compiled assets
+```
+
+## 🧑‍💻 Development
+
+### Common Commands
+
+```bash
+# Watch frontend changes
+npm run dev
+
+# Run PHP tests
+php artisan test
+
+# Generate IDE helpers
+php artisan ide-helper:generate
+```
+
+### Coding Standards
+
+- PHP: Follow PSR-12
+- JavaScript: ESLint + Prettier
+- TypeScript: Strict mode enabled
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📜 License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+**Enjoy task management made delightful!** ✨
+For questions or support, please open an issue on GitHub.
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
