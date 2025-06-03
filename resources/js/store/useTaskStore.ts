@@ -20,14 +20,9 @@ interface TaskState {
   deleteProject: (id: number) => Promise<void>;
 }
 
-interface StateProps {
-  tasks: Task[];
-  projects: Project[];
-  selectedProjectId: number | null;
-  setSelectedProject: (id: number | null) => void;
-};
+type StateProps = Pick<TaskState, 'tasks'|'projects'|'selectedProjectId'>;
 
-export const useTaskStore: () => TaskState = create<TaskState>((set: (a:any) => void, get: () => StateProps) => ({
+export const useTaskStore: () => TaskState = create<TaskState>((set: (a:Partial<StateProps>) => void, get: () => StateProps) => ({
   tasks: [] as Task[],
   projects: [] as Project[],
   selectedProjectId: null,
@@ -118,7 +113,7 @@ export const useTaskStore: () => TaskState = create<TaskState>((set: (a:any) => 
       set({ tasks: get().tasks.filter((task: Task) => task.projectId !== id) });
 
       if (get().selectedProjectId === id) {
-        get().setSelectedProject(null);
+        set({ selectedProjectId: null })
       }
     } catch (e) {
       console.error('Failed to delete project:', e);

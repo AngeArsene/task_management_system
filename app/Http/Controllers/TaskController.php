@@ -23,14 +23,7 @@ class TaskController extends Controller
         $tasks = Task::when($projectId, fn ($q) => $q->where('project_id', $projectId))
             ->orderBy('priority')
             ->get()
-            ->map(fn ($task) => [
-                'id'        => $task->id,
-                'name'      => $task->name,
-                'priority'  => $task->priority,
-                'projectId' => $task->project_id,
-                'createdAt' => $task->created_at,
-                'updatedAt' => $task->updated_at,
-            ]);
+            ->map(fn ($task) => self::formate($task));
 
         return Inertia::render(
             'Welcome',
@@ -55,14 +48,7 @@ class TaskController extends Controller
             'project_id' => $request->project_id,
         ]);
 
-        return response()->json([
-            'id'        => $task->id,
-            'name'      => $task->name,
-            'priority'  => $task->priority,
-            'projectId' => $task->project_id,
-            'createdAt' => $task->created_at,
-            'updatedAt' => $task->updated_at,
-        ]);
+        return response()->json(self::formate($task));
     }
 
     public function update(Request $request, Task $task)
@@ -70,14 +56,7 @@ class TaskController extends Controller
         $request->validate(['name' => 'required|string']);
         $task->update($request->only('name'));
 
-        return response()->json([
-            'id' => $task->id,
-            'name' => $task->name,
-            'priority' => $task->priority,
-            'projectId' => $task->project_id,
-            'createdAt' => $task->created_at,
-            'updatedAt' => $task->updated_at,
-        ]);
+        return response()->json(self::formate($task));
     }
 
     public function destroy(Task $task): JsonResponse
@@ -94,5 +73,17 @@ class TaskController extends Controller
         }
 
         return response()->json(['status' => 'ok']);
+    }
+
+    private static function formate (Task $task): array
+    {
+        return [
+            'id'        => $task->id,
+            'name'      => $task->name,
+            'priority'  => $task->priority,
+            'projectId' => $task->project_id,
+            'createdAt' => $task->created_at,
+            'updatedAt' => $task->updated_at,
+        ];
     }
 }
