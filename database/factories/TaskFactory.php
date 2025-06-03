@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TaskFactory extends Factory
 {
     /**
+     * @var int
+     */
+    private int $priority = 0;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
@@ -17,7 +22,8 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name'     => fake()->text(20),
+            'priority' => ++$this->priority
         ];
     }
 }

@@ -1,14 +1,14 @@
 import React from 'react';
 import { TaskItem } from './TaskItem';
-import { Task } from '../types/task';
+import { Task } from '@/types/index';
 import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
   useSensor,
+  DndContext,
   useSensors,
   DragEndEvent,
+  closestCenter,
+  PointerSensor,
+  KeyboardSensor,
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -47,10 +47,10 @@ export function TaskList({ tasks }: TaskListProps) {
 
     if (oldIndex === -1 || newIndex === -1) return;
 
-    const reordered = arrayMove(tasks, oldIndex, newIndex);
+    const reordered: Task[] = arrayMove(tasks, oldIndex, newIndex);
 
     // Update priorities in the reordered array
-    const withUpdatedPriorities = reordered.map((task, index) => ({
+    const withUpdatedPriorities = reordered.map((task: Task, index: number) => ({
         ...task,
         priority: index + 1
     }));

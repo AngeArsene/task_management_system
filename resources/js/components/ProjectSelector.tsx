@@ -1,9 +1,12 @@
 import React from 'react';
-import { useTaskStore } from '../store/useTaskStore';
 import { motion } from 'framer-motion';
+import { useTaskStore } from '../store/useTaskStore';
 
 export function ProjectSelector() {
-  const { projects, selectedProjectId, setSelectedProject } = useTaskStore();
+  const {
+    projects, 
+    selectedProjectId, 
+    setSelectedProject } = useTaskStore();
 
   return (
     <div className="mb-6">

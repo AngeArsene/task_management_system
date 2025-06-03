@@ -1,13 +1,13 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { PlusCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useTaskStore } from '../store/useTaskStore';
 
 
 export function TaskForm() {
   const [taskName, setTaskName] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedProjectId, setSelectedProjectId] = useState('');
+  const [selectedProjectId, setSelectedProjectId] = useState(0);
   const { addTask, projects } = useTaskStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -57,7 +57,7 @@ export function TaskForm() {
               </label>
               <select
                 value={selectedProjectId}
-                onChange={(e) => setSelectedProjectId(e.target.value)}
+                onChange={(e) => setSelectedProjectId(Number(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none
                          focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required

@@ -18,7 +18,7 @@ class ProjectController extends Controller
                 'name' => $project->name,
                 'createdAt' => $project->created_at,
                 'updatedAt' => $project->updated_at,
-                'color' => $this->generateColor($project->id),
+                'color' => self::generateColor($project->id)
             ];
         });
     }
@@ -31,13 +31,17 @@ class ProjectController extends Controller
         $request->validate(['name' => 'required']);
         $project = Project::create(['name' => $request->name]);
 
-        return response()->json($project); // ✅ required for frontend update
+        return response()->json([
+            'id'    => $project->id,
+            'name'  => $project->name,
+            'color' => self::generateColor($project->id)
+        ]); // ✅ required for frontend update
     }
 
     /**
      * Optionally generate a color for each project (you can customize this).
      */
-    private function generateColor($id)
+    public static function generateColor($id)
     {
         // Example: return one of several colors based on project ID
         $colors = ['#EF4444', '#F97316', '#3B82F6', '#10B981', '#6366F1'];

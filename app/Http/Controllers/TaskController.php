@@ -15,30 +15,31 @@ class TaskController extends Controller
         $projectId = $request->input('project_id');
 
         $projects = Project::all()->map(fn ($project) => [
-            'id' => $project->id,
-            'name' => $project->name,
-            'createdAt' => $project->created_at,
-            'updatedAt' => $project->updated_at,
-            'color' => null,
+            'id'    => $project->id,
+            'name'  => $project->name,
+            'color' => ProjectController::generateColor($project->id),
         ]);
 
         $tasks = Task::when($projectId, fn ($q) => $q->where('project_id', $projectId))
             ->orderBy('priority')
             ->get()
             ->map(fn ($task) => [
-                'id' => $task->id,
-                'name' => $task->name,
-                'priority' => $task->priority,
+                'id'        => $task->id,
+                'name'      => $task->name,
+                'priority'  => $task->priority,
                 'projectId' => $task->project_id,
                 'createdAt' => $task->created_at,
                 'updatedAt' => $task->updated_at,
             ]);
 
-        return Inertia::render('Welcome', [
-            'projects' => $projects,
-            'tasks' => $tasks,
-            'selectedProject' => $projectId,
-        ]);
+        return Inertia::render(
+            'Welcome',
+            [
+                'tasks'           => $tasks,
+                'projects'        => $projects,
+                'selectedProject' => $projectId
+            ]
+        );
     }
 
     public function store(Request $request)
@@ -48,18 +49,16 @@ class TaskController extends Controller
             'project_id' => 'required|exists:projects,id',
         ]);
 
-        $priority = Task::where('project_id', $request->project_id)->max('priority') ?? 0;
-
         $task = Task::create([
-            'name' => $request->name,
-            'priority' => $priority + 1,
+            'name'       => $request->name,
+            'priority'   => Task::highestPriority($request->project_id) + 1,
             'project_id' => $request->project_id,
         ]);
 
         return response()->json([
-            'id' => $task->id,
-            'name' => $task->name,
-            'priority' => $task->priority,
+            'id'        => $task->id,
+            'name'      => $task->name,
+            'priority'  => $task->priority,
             'projectId' => $task->project_id,
             'createdAt' => $task->created_at,
             'updatedAt' => $task->updated_at,

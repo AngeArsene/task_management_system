@@ -8,18 +8,26 @@ import { ProjectSelector } from '../components/ProjectSelector';
 import { ProjectManager } from '../components/ProjectManager';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePage } from '@inertiajs/react';
-import { Task, Project } from '../types/task';
+import { PageProps, Task, Project } from '@/types/index';
 
 function App() {
-  const page = usePage<any>(); // disables TS checking for props
+  type Tasks = {
+    tasks: Task[],
+    projects: Project[],
+    selectedProject: number|null
+  };
 
-  const { tasks: initialTasks, projects: initialProjects, selectedProject } = page.props;
+  const {
+    selectedProject,
+    tasks: initialTasks,
+    projects: initialProjects
+  } = usePage<PageProps<Tasks>>().props as Tasks;
 
   const {
     tasks,
-    selectedProjectId,
     setTasks,
     setProjects,
+    selectedProjectId,
     setSelectedProject,
   } = useTaskStore();
 
@@ -33,7 +41,7 @@ function App() {
 
 
   const filteredTasks = selectedProjectId
-    ? tasks.filter(task => String(task.projectId) === String(selectedProjectId))
+    ? tasks.filter((task: Task) => task.projectId === selectedProjectId)
     : tasks;
 
   return (

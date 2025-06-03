@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Edit2, Trash2, Check, X } from 'lucide-react';
-import { Task } from '../types/task';
+import { Task } from '@/types/index';
 import { motion } from 'framer-motion';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
