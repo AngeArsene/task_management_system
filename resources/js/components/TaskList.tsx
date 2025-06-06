@@ -74,8 +74,6 @@ export function TaskList({ tasks }: TaskListProps) {
               <TaskItem
                 key={task.id}
                 task={task}
-                onUpdate={(name) => updateTask(task.id, name)}
-                onDelete={() => deleteTask(task.id)}
               />
             ))
           ) : (

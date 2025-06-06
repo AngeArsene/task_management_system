@@ -9,8 +9,6 @@ import { useTaskStore } from '../store/useTaskStore';
 
 export interface TaskItemProps {
     task: Task;
-    onUpdate: (name: string) => Promise<void>;
-    onDelete: () => Promise<void>;
 }
 
 export function TaskItem({ task }: TaskItemProps) {
