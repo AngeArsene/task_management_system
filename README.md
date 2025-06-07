@@ -1,4 +1,3 @@
-
 # TaskFlow - Drag & Drop Task Manager
 
 🚀 **A sleek, interactive task management app** with project organization, priority-based sorting, and smooth drag-and-drop functionality. Built with Laravel, Inertia.js, React, and TypeScript.
@@ -38,8 +37,8 @@
 
 **Backend**
 
-- Laravel 10
-- MySQL
+- Laravel 12
+- MySQL / SQLite
 
 **State Management**
 
@@ -52,7 +51,7 @@
 - PHP ≥ 8.1
 - Composer
 - Node.js ≥ 16
-- MySQL
+- MySQL / SQLite
 
 ### Setup Steps
 
@@ -71,14 +70,14 @@
 3. Set up database:
 
    ```bash
-   php artisan migrate
+   php artisan migrate:refresh --seed
    ```
-5. Build assets:
+4. Build assets:
 
    ```bash
    npm run build
    ```
-6. Start development servers:
+5. Start development servers:
 
    ```bash
    composer run dev

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Task;
+use Inertia\Response;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class TaskController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $projectId = $request->input('project_id');
 

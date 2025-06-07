@@ -6,16 +6,16 @@ interface TaskState {
   tasks: Task[];
   projects: Project[];
   selectedProjectId: number | null;
-  
+
   setTasks: (tasks: Task[]) => void;
   setProjects: (projects: Project[]) => void;
   setSelectedProject: (id: number | null) => void;
-  
+
   addTask: (name: string, projectId: number) => Promise<void>;
   updateTask: (id: number, name: string) => Promise<void>;
   deleteTask: (id: number) => Promise<void>;
   reorderTasks: (tasks: Task[]) => Promise<void>;
-  
+
   addProject: (name: string) => Promise<void>;
   deleteProject: (id: number) => Promise<void>;
 }
@@ -35,9 +35,9 @@ export const useTaskStore: () => TaskState = create<TaskState>((set: (a:Partial<
     set({ selectedProjectId: id });
   },
 
-  addTask: async (name: string, projectId: number) => {
+  addTask: async (name: string, projectId: number): Promise<void> => {
     try {
-      const { data: newTask } = await 
+      const { data: newTask } = await
         api.post('/tasks', { name, project_id: projectId }) as { data: Task };
 
       // Append only if it matches current filter
@@ -52,13 +52,13 @@ export const useTaskStore: () => TaskState = create<TaskState>((set: (a:Partial<
 
   updateTask: async (id: number, name: string): Promise<void> => {
     try {
-      const { data: upToDateTask } = await 
+      const { data: upToDateTask } = await
         api.put(`/tasks/${id}`, { name }) as { data: Task };
 
       const updatedTasks: Task[] = get().tasks.map((task: Task) =>
         task.id === id ? upToDateTask : task
       );
-      
+
       set({ tasks: updatedTasks });
     } catch (e) {
       console.error('Failed to update task:', e);
@@ -67,7 +67,7 @@ export const useTaskStore: () => TaskState = create<TaskState>((set: (a:Partial<
 
   deleteTask: async (id: number): Promise<void> => {
     try {
-      const { data: { status } } = await 
+      const { data: { status } } = await
         api.delete(`/tasks/${id}`) as { data: {status: 'deleted'} };
 
       const filtered: Task[] = get().tasks.filter((task: Task) => task.id !== id);
@@ -94,18 +94,18 @@ export const useTaskStore: () => TaskState = create<TaskState>((set: (a:Partial<
     }
   },
 
-  addProject: async (name: string) => {
+  addProject: async (name: string): Promise<void> => {
     try {
-      const { data: newProject } = await 
+      const { data: newProject } = await
         api.post('/projects', { name }) as { data: Project };
-      
+
       set({ projects: [...get().projects, newProject] });
     } catch (e) {
       console.error('Failed to add project:', e);
     }
   },
 
-  deleteProject: async (id: number) => {
+  deleteProject: async (id: number): Promise<void> => {
     try {
       await api.delete(`/projects/${id}`);
       const filtered = get().projects.filter((p: Project) => p.id !== id);

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { useTaskStore } from '../store/useTaskStore';
+import { usePage } from '@inertiajs/react';
 import { TaskForm } from '../components/TaskForm';
 import { TaskList } from '../components/TaskList';
 import { AppHeader } from '../components/AppHeader';
+import { useTaskStore } from '../store/useTaskStore';
 import { EmptyState } from '../components/EmptyState';
-import { ProjectSelector } from '../components/ProjectSelector';
-import { ProjectManager } from '../components/ProjectManager';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePage } from '@inertiajs/react';
 import { PageProps, Task, Project } from '@/types/index';
+import { ProjectManager } from '../components/ProjectManager';
+import { ProjectSelector } from '../components/ProjectSelector';
 
 function App() {
   type Tasks = {
@@ -21,7 +21,7 @@ function App() {
     selectedProject,
     tasks: initialTasks,
     projects: initialProjects
-  } = usePage<PageProps<Tasks>>().props as Tasks;
+  } = usePage<PageProps<Tasks>>().props;
 
   const {
     tasks,

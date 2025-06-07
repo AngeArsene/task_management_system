@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Plus, Edit2, Trash2, Check, X } from 'lucide-react';
 import { useTaskStore } from '../store/useTaskStore';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, Edit2, Trash2, Check, X } from 'lucide-react';
 
 export function ProjectManager() {
   const { projects, addProject, deleteProject } = useTaskStore();
