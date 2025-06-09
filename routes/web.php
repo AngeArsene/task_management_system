@@ -7,4 +7,4 @@ use App\Http\Controllers\ProjectController;
 Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 Route::resource('tasks', TaskController::class)->except(['show', 'index']);
 Route::post('/tasks/reorder', [TaskController::class, 'reorder'])->name('tasks.reorder');
-Route::resource('projects', ProjectController::class)->only(['store', 'index', 'destroy']);
+Route::resource('projects', ProjectController::class)->only(['store', 'destroy']);

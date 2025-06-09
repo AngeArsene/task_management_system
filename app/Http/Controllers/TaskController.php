@@ -11,27 +11,27 @@ use Illuminate\Http\JsonResponse;
 
 class TaskController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Inertia\Response
+     */
     public function index(Request $request): Response
     {
-        $projectId = $request->input('project_id');
-
         $projects = Project::all()->map(fn ($project) => [
             'id'    => $project->id,
             'name'  => $project->name,
             'color' => ProjectController::generateColor($project->id),
         ]);
 
-        $tasks = Task::when($projectId, fn ($q) => $q->where('project_id', $projectId))
-            ->orderBy('priority')
-            ->get()
-            ->map(fn ($task) => self::formate($task));
+        $tasks = Task::orderBy('priority')->get()->map(fn ($task) => self::formate($task));
 
         return Inertia::render(
             'Welcome',
             [
                 'tasks'           => $tasks,
                 'projects'        => $projects,
-                'selectedProject' => $projectId
+                'selectedProject' => null
             ]
         );
     }
